@@ -26,9 +26,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { isLoading, error, recipes } = this.props.home;
-    console.log('isLoading: ', isLoading);
-    console.log('error: ', error);
+    const { isLoading, error, recipes } = this.props;
     console.log('recipes: ', recipes);
     let message = '';
     if (recipes === undefined) {
@@ -49,7 +47,7 @@ class HomePage extends React.Component {
           onChangeText={queryString => this.setState({ queryString })}
         />
 
-        <ScrollView style={styles.searchResults}>
+        <ScrollView style={styles.content}>
           {isLoading
             ? <ActivityIndicator />
             : recipes && recipes.length
@@ -65,7 +63,7 @@ class HomePage extends React.Component {
 }
 
 export default connect(
-  ({ home }) => ({ home }),
+  ({ home: { isLoading, error, recipes } }) => ({ isLoading, error, recipes }),
   { searchWithQuery }
 )(HomePage)
 
@@ -73,7 +71,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  searchResults: {
+  content: {
     borderColor: 'red',
     borderWidth: 1,
     borderStyle: 'solid'

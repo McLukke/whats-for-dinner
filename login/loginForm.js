@@ -67,7 +67,7 @@ export default class LoginForm extends React.Component {
         <FormLabel>Password</FormLabel>
         <FormInput
           onChange={e => this.setState({ password: e.target.value })}
-          type='password'
+          secureTextEntry
         />
         {errors.password ? <FormValidationMessage>{errors.message}</FormValidationMessage> : null}
 

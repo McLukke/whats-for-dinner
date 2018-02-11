@@ -1,11 +1,14 @@
-import { ActionConst } from 'react-native-router-flux';
+import { QUERY_RECIPES } from '../actions/home';
 
-const homeReducer = (state ={}, { type, scene }) => {
+const homeReducer = (state = {}, { type, isLoading, error, payload }) => {
   switch (type) {
-    case ActionConst.FOCUS:
+    case QUERY_RECIPES:
       return {
         ...state,
-        scene,
+        isLoading,
+        error,
+        payload,
+        recipes: payload && payload.hits ? payload.hits : []
       };
   
     default:

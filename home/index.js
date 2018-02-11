@@ -1,17 +1,24 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
 import {
-  FormLabel,
-  FormInput
-} from 'react-native-elements';
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableHighlight,
+  TextInput,
+  Text,
+  ActivityIndicator
+} from 'react-native';
+import { SearchBar } from 'react-native-elements';
 
-import { baseUrl, appId, appKey } from '../env';
+// import SearchBar from '../common/components/SearchBar';
+import { searchWithQuery } from '../actions/home';
 
 const initState = {
   queryString: ''
 }
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,21 +26,56 @@ export default class HomePage extends React.Component {
   }
 
   render() {
+    const { isLoading, error, recipes } = this.props.home;
+    console.log('isLoading: ', isLoading);
+    console.log('error: ', error);
+    console.log('recipes: ', recipes);
+    let message = '';
+    if (recipes === undefined) {
+      message = "Don't know what to make for dinner? We're here to help! Go ahead, try searching";
+    } else if (recipes && !recipes.length) {
+      message = 'No recipes found!';
+    }
+
     return (
       <View style={styles.container}>
-        <FormLabel>Search for recipes:</FormLabel>
-        <FormInput
+        <SearchBar
+          lightTheme
+          round
           placeholder='I have...'
+          autoCapitalize='none'
+          returnKeyType='search'
+          onSubmitEditing={() => this.props.searchWithQuery(this.state.queryString)}
+          onChangeText={queryString => this.setState({ queryString })}
         />
+
+        <ScrollView style={styles.searchResults}>
+          {isLoading
+            ? <ActivityIndicator />
+            : recipes && recipes.length
+              ? <View>
+                  <Text>Recipes!</Text>
+                </View>
+              : <Text>{message}</Text>
+          }
+        </ScrollView>
       </View>
     );
   }
 }
 
+export default connect(
+  ({ home }) => ({ home }),
+  { searchWithQuery }
+)(HomePage)
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
+  },
+  searchResults: {
+    borderColor: 'red',
+    borderWidth: 1,
+    borderStyle: 'solid'
   }
 });

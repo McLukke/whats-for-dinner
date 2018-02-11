@@ -1,7 +1,39 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import PropTypes from 'prop-types';
+import { View, StyleSheet } from 'react-native';
+import {
+  FormLabel,
+  FormInput
+} from 'react-native-elements';
 
-const HomePage = () => <View><Text>Home Page!!Bewbs</Text></View>;
+import { baseUrl, appId, appKey } from '../env';
 
-export default HomePage;
+const initState = {
+  queryString: ''
+}
+
+export default class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = initState;
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <FormLabel>Search for recipes:</FormLabel>
+        <FormInput
+          placeholder='I have...'
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});

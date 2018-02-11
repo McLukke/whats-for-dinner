@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { View, StyleSheet } from 'react-native';
 import {
   Button,
@@ -60,6 +61,10 @@ export default class SignupForm extends React.Component {
     );
   }
 }
+
+SignupForm.propTypes = {
+  resetTabs: PropTypes.function
+};
 
 const styles = StyleSheet.create({
   form: {

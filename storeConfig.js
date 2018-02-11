@@ -1,8 +1,8 @@
 // core vendor
-import { createStore, applyMiddleware, compose } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux';
 
 // middleware
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk';
 import promiseMiddleware from 'redux-loading-promise-middleware';
 import { createLogger } from 'redux-logger';
 const loggerMiddleware = createLogger({
@@ -10,7 +10,7 @@ const loggerMiddleware = createLogger({
 });
 
 // App
-import reducers from './reducers'
+import reducers from './reducers';
 
 export default createStore(
   reducers,
@@ -21,4 +21,4 @@ export default createStore(
         loggerMiddleware
     )
   )
-)
+);

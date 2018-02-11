@@ -15,8 +15,8 @@ const AppRoutes = () =>
   <ConnectedRouter>
     <Lightbox>
       <Scene key='root'>
-        <Scene key='login' initial component={LoginPage} />
-        <Scene key='home' component={HomePage} />
+        <Scene key='login' component={LoginPage} />
+        <Scene key='home' initial component={HomePage} />
       </Scene>
 
       <Scene key='testLightbox' component={TestLightbox} />

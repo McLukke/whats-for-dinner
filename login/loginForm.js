@@ -1,7 +1,5 @@
 import React from 'react';
-import cx from 'classnames';
-import { View, Text, StyleSheet } from 'react-native';
-import { Tabs, Scene } from 'react-native-router-flux';
+import { View, StyleSheet } from 'react-native';
 import {
   Button,
   FormLabel,
@@ -14,22 +12,20 @@ const initErrorState = {
   username: false,
   password: false,
   message: 'This field is required'
-}
+};
 
 const initState = {
   username: '',
   password: '',
   errors: initErrorState
-}
+};
 
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = initState
+    this.state = initState;
   }
-
-  updateInput = input => this.setState(input);
 
   validate = () => {
     const hasErrors = true;
@@ -50,23 +46,28 @@ export default class LoginForm extends React.Component {
     const [hasErrors, errors] = this.validate();
 
     if (hasErrors) {
-      return this.setState({ errors })
+      return this.setState({ errors });
     }
 
     return Actions.home;
   }
 
   render() {
-    const errors = this.state.errors
+    const errors = this.state.errors;
 
     return (
       <View style={styles.form}>
         <FormLabel>Username</FormLabel>
-        <FormInput onChange={e => this.updateInput({ username: e.target.value })} />
+        <FormInput
+          onChange={e => this.setState({ username: e.target.value })}
+        />
         {errors.username ? <FormValidationMessage>{errors.message}</FormValidationMessage> : null}
 
         <FormLabel>Password</FormLabel>
-        <FormInput onChange={e => this.updateInput({ password: e.target.value })} type='password' />
+        <FormInput
+          onChange={e => this.setState({ password: e.target.value })}
+          type='password'
+        />
         {errors.password ? <FormValidationMessage>{errors.message}</FormValidationMessage> : null}
 
         <Button

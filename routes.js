@@ -9,14 +9,14 @@ const HomePage = () => <View><Text>Home Page</Text></View>;
 const TestLightbox = () => <View><Text>Hello World</Text></View>;
 
 const AppRoutes = () =>
-    <ConnectedRouter>
-        <Lightbox>
-            <Scene key='root'>
-                <Scene key="home" initial component={HomePage} />
-            </Scene>
+  <ConnectedRouter>
+    <Lightbox>
+      <Scene key='root'>
+        <Scene key='home' initial component={HomePage} />
+      </Scene>
 
-            <Scene key="testLightbox" component={TestLightbox} />
-        </Lightbox>
-    </ConnectedRouter>;
+      <Scene key='testLightbox' component={TestLightbox} />
+    </Lightbox>
+  </ConnectedRouter>;
 
 export default AppRoutes;

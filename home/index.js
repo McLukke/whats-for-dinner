@@ -7,7 +7,8 @@ import {
   TouchableHighlight,
   TextInput,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 
@@ -26,8 +27,9 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { isLoading, error, recipes = [] } = this.props;
+    const { isLoading, error, recipes } = this.props;
     console.log('recipes: ', recipes);
+    console.log('this.state.queryString: ', this.state.queryString);
 
     return (
       <View style={styles.container}>
@@ -42,19 +44,21 @@ class HomePage extends React.Component {
         />
 
         <ScrollView style={styles.content}>
-          {!this.state.queryString && !recipes
+          {!recipes
             ? <Text>Don't know what to make for dinner? We're here to help! Go ahead, try searching</Text>
-            : <List
-                emptyMessage="No Recipes Found"
-                isLoading={isLoading}
-                error={error}>
-                {recipes.map((recipe, index) =>
-                  <View key={index}>
-                    <Text>Hey</Text>
-                  </View>
-                )}
-              </List>
-          }
+            : null}
+
+          <List
+            emptyMessage="No Recipes Found"
+            isLoading={isLoading}
+            error={error}>
+            {recipes && recipes.map((recipe, index) =>
+              <View key={index}>
+                <Image style={styles.recipeImage} source={{ uri: recipe.recipe.image }} />
+                <Text>{recipe.recipe.label}</Text>
+              </View>
+            )}
+          </List>
         </ScrollView>
       </View>
     );
@@ -71,8 +75,15 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
+    padding: 10,
     borderColor: 'red',
     borderWidth: 1,
     borderStyle: 'solid'
+  },
+  recipeImage: {
+    borderColor: 'red',
+    borderWidth: 1,
+    width: '45%',
+    height: 200
   }
 });

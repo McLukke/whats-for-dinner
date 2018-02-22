@@ -10,7 +10,7 @@ const List = ({
 }) => {
   if (isLoading) return <ActivityIndicator />;
   if (error) return <View><Text>{error.message || error}</Text></View>;
-  if (!children.length) return <View><Text>{emptyMessage}</Text></View>;
+  if (children && !children.length) return <View><Text>{emptyMessage}</Text></View>;
 
   return (<View {...restProps}>
       {children}

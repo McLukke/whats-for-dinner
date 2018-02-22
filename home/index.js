@@ -11,6 +11,7 @@ import {
   Image
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
+import Masonry from 'react-native-masonry';
 
 import { searchWithQuery } from '../actions/home';
 import List from '../common/components/List'
@@ -29,7 +30,6 @@ class HomePage extends React.Component {
   render() {
     const { isLoading, error, recipes } = this.props;
     console.log('recipes: ', recipes);
-    console.log('this.state.queryString: ', this.state.queryString);
 
     return (
       <View style={styles.container}>
@@ -53,10 +53,21 @@ class HomePage extends React.Component {
             isLoading={isLoading}
             error={error}>
             {recipes && recipes.map((recipe, index) =>
-              <View key={index}>
-                <Image style={styles.recipeImage} source={{ uri: recipe.recipe.image }} />
-                <Text>{recipe.recipe.label}</Text>
-              </View>
+              <Masonry
+                key={index}
+                bricks={recipes.map(recipe => ({
+                  uri: recipe.recipe.image,
+                  onPress: data => console.log(`${data.name} pressed!`),
+                  data: {
+                    name: recipe.recipe.label
+                  },
+                  renderFooter: data =>
+                    <View>
+                      <Text>{data.name}</Text>
+                    </View>
+                }))}
+                spacing={2}
+              />
             )}
           </List>
         </ScrollView>

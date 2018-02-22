@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 
-// import SearchBar from '../common/components/SearchBar';
 import { searchWithQuery } from '../actions/home';
+import List from '../common/components/List'
 
 const initState = {
   queryString: ''
@@ -26,14 +26,8 @@ class HomePage extends React.Component {
   }
 
   render() {
-    const { isLoading, error, recipes } = this.props;
+    const { isLoading, error, recipes = [] } = this.props;
     console.log('recipes: ', recipes);
-    let message = '';
-    if (recipes === undefined) {
-      message = "Don't know what to make for dinner? We're here to help! Go ahead, try searching";
-    } else if (recipes && !recipes.length) {
-      message = 'No recipes found!';
-    }
 
     return (
       <View style={styles.container}>
@@ -48,13 +42,18 @@ class HomePage extends React.Component {
         />
 
         <ScrollView style={styles.content}>
-          {isLoading
-            ? <ActivityIndicator />
-            : recipes && recipes.length
-              ? <View>
-                  <Text>Recipes!</Text>
-                </View>
-              : <Text>{message}</Text>
+          {!this.state.queryString && !recipes
+            ? <Text>Don't know what to make for dinner? We're here to help! Go ahead, try searching</Text>
+            : <List
+                emptyMessage="No Recipes Found"
+                isLoading={isLoading}
+                error={error}>
+                {recipes.map((recipe, index) =>
+                  <View key={index}>
+                    <Text>Hey</Text>
+                  </View>
+                )}
+              </List>
           }
         </ScrollView>
       </View>

@@ -52,9 +52,8 @@ class HomePage extends React.Component {
             emptyMessage="No Recipes Found"
             isLoading={isLoading}
             error={error}>
-            {recipes && recipes.map((recipe, index) =>
+            {recipes ?
               <Masonry
-                key={index}
                 bricks={recipes.map(recipe => ({
                   uri: recipe.recipe.image,
                   onPress: data => console.log(`${data.name} pressed!`),
@@ -68,7 +67,7 @@ class HomePage extends React.Component {
                 }))}
                 spacing={2}
               />
-            )}
+            : null}
           </List>
         </ScrollView>
       </View>
